@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    
+    <!-- Переключаем проект на стабильный .NET 10 -->
+    <TargetFramework>net10.0</TargetFramework>
+    
+    <!-- Разрешаем использовать синтаксис C# 10 и выше -->
+    <LangVersion>10.0</LangVersion>
+    
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- Настройка вывода под архитектуру -->
+    <AppendRuntimeIdentifierToOutputPath>true</AppendRuntimeIdentifierToOutputPath>
+    <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <!-- Исключаем динамические скрипты из сборки ядра -->
+  <ItemGroup>
+    <Compile Remove="..\..\CustomScripts\**" />
+    <None Include="..\..\CustomScripts\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Подключаем Roslyn-компилятор, совместимый с современным .NET -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
+  </ItemGroup>
+
+</Project>
